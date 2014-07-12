@@ -10,5 +10,8 @@ export RAILS_ENV=production
 git checkout beta
 git pull
 
+bundle install
+rake db:migrate
 rake assets:precompile
+
 service unicorn restart
