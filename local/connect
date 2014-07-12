@@ -1,5 +1,5 @@
 #!/bin/bash
 SRC_DIR=$(dirname $0)
-HOST=$(<$SRC_DIR/.host)
+HOST=$(<$SRC_DIR/HOST)
 
 ssh root@$HOST
