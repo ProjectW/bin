@@ -1,0 +1,23 @@
+#!/bin/sh
+
+usage(){
+  echo "Usage: $0 PROJECTX_CODE_DIR" 1>&2
+  exit 1
+}
+
+# Verify code directory exists
+if [ ! -d "$1" ]; then
+  usage
+fi
+
+BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+
+if ! grep -q projectx_bin_profile ~/.profile; then
+  echo >> ~/.profile
+  echo "source ~/.projectx_bin_profile" >> ~/.profile
+fi
+
+cat << EOT > ~/.projectx_bin_profile
+
+export PROJECTX_CODE_DIR=`cd \`dirname "${1}"\`; pwd`/`basename "${1}"`
+export PATH=\$PATH:$BIN_DIR:$BIN_DIR/git:$BIN_DIR/local

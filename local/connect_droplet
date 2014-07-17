@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 SRC_DIR=$(dirname $0)
 HOST=$(<$SRC_DIR/HOST)
 
