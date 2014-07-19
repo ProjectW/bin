@@ -1,0 +1,16 @@
+#!/bin/sh
+
+usage(){
+  echo "Usage: $0 DROPLET_NAME" 1>&2
+  exit 1
+}
+
+if [ -z $1 ]; then
+  usage
+fi
+
+SRC_DIR=$(dirname $BASH_SOURCE[0])
+HOST=$(<$SRC_DIR/.$1)
+
+ssh root@$HOST
+
