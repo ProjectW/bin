@@ -11,5 +11,5 @@ COMPARE_URL="$BASE_GIT_URL/$CURRENT_PROJECT/compare/beta...$CURRENT_BRANCH"
 open $COMPARE_URL
 
 echo "Opened url: $COMPARE_URL"
-echo "Don't forget to push your current branch to origin too"
+echo "Don't forget to push your current branch to origin $CURRENT_BRANCH by running 'git push origin $CURRENT_BRANCH' "
 
