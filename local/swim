@@ -1,13 +1,14 @@
 #!/bin/sh
 
 # Used to connect to different hosts via ssh.
-# All hosts can be found in .hosts/
+#
+# All hosts can be found in .swim_hosts/
 #
 # Use "swim -l" to list available hosts
-# Use "swim -s HOST_TOKEN" to set HOST_TOKEN as main
+# Use "swim -s HOST_TOKEN" to set HOST_TOKEN as default
 
 SRC_DIR=$(dirname $BASH_SOURCE[0])
-HOSTS_DIR=$SRC_DIR/.hosts
+HOSTS_DIR=$SRC_DIR/.swim_hosts
 
 usage(){
   echo "Usage: $0 DROPLET_NAME" 1>&2
@@ -18,7 +19,6 @@ list(){
   for host in `ls -A $HOSTS_DIR | grep '^\.'`; 
     do echo ${host:1} `cat $HOSTS_DIR/$host | head -1`; 
   done
-
   exit 0
 }
 
