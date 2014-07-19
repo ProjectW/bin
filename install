@@ -12,12 +12,13 @@ fi
 
 BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 
-if ! grep -q projectx_bin_profile ~/.profile; then
-  echo >> ~/.profile
-  echo "source ~/.projectx_bin_profile" >> ~/.profile
+if ! grep -q projectx_bin_profile ~/.bash_profile; then
+  echo >> ~/.bash_profile
+  echo "source ~/.projectx_bin_profile" >> ~/.bash_profile
 fi
 
 cat << EOT > ~/.projectx_bin_profile
 
 export PROJECTX_CODE_DIR=`cd \`dirname "${1}"\`; pwd`/`basename "${1}"`
 export PATH=\$PATH:$BIN_DIR:$BIN_DIR/git:$BIN_DIR/local
+
