@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "$1" = "deploy" ] 
+then
+  shift
+  if [ -z "$1" ]
+    then
+      echo "Deploying default branch"
+      bundle exec cap staging deploy
+    else
+      echo "Deploying $1 branch"
+      bundle exec cap staging deploy branch=$1
+  fi
+else 
+  echo "Usage: please deploy BRANCH" 1>&2
+  exit 1
+fi
