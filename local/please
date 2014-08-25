@@ -5,10 +5,14 @@ then
   shift
   if [ -z "$1" ]
     then
-      echo "Deploying default branch"
+      notification_string="Deploying default branch"
+      echo $notification_string
+      echo "{\"text\" : \"$notification_string\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
       bundle exec cap staging deploy
     else
-      echo "Deploying $1 branch"
+      notification_string="Deploying $1 branch"
+      echo $notification_string
+      echo "{\"text\" : \"$notification_string\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
       bundle exec cap staging deploy branch=$1
   fi
 else 
