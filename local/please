@@ -1,5 +1,6 @@
 #!/bin/sh
 
+hostname=`hostname`
 if [ "$1" = "deploy" ] 
 then
   shift
@@ -7,12 +8,12 @@ then
     then
       notification_string="Deploying default branch"
       echo $notification_string
-      echo "{\"text\" : \"$notification_string\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
+      echo "{\"text\" : \"$notification_string from $hostname\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
       bundle exec cap staging deploy
     else
       notification_string="Deploying $1 branch"
       echo $notification_string
-      echo "{\"text\" : \"$notification_string\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
+      echo "{\"text\" : \"$notification_string from $hostname\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
       bundle exec cap staging deploy branch=$1
   fi
 else 
