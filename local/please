@@ -1,22 +1,35 @@
 #!/bin/sh
 
 hostname=`hostname`
-if [ "$1" = "deploy" ] 
-then
+
+notify() {
+  echo $notification
+  echo "{\"text\" : \"$notification from $hostname\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
+}
+
+if [ "$1" = "deploy" ]; then
   shift
-  if [ -z "$1" ]
-    then
-      notification_string="Deploying default branch"
-      echo $notification_string
-      echo "{\"text\" : \"$notification_string from $hostname\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
-      bundle exec cap staging deploy
-    else
-      notification_string="Deploying $1 branch"
-      echo $notification_string
-      echo "{\"text\" : \"$notification_string from $hostname\"}" | curl -d @- https://projectkwl.slack.com/services/hooks/incoming-webhook?token=sSyagFIJbA8fGu38aDZXd0zn
-      bundle exec cap staging deploy branch=$1
-  fi
+  if [ -z "$1" ]; then
+    notification="Deploying default branch"
+    notify
+    bundle exec cap staging deploy
+  else
+    notification="Deploying $1 branch"
+    notify
+    bundle exec cap staging deploy branch=$1
+  fi;
+elif [ "$1" = "rollback" ]; then
+  shift
+  if [ -z "$1" ]; then
+    notification="Rollback staging"
+    notify
+    bundle exec cap staging deploy:rollback
+  else
+    notification="Rollback $1"
+    notify
+    bundle exec cap $1 deploy:rollback
+  fi;
 else 
-  echo "Usage: please deploy BRANCH" 1>&2
-  exit 1
+  echo "Usage: please [deploy BRANCH|rollback server]" 1>&2
+  exit 1;
 fi
