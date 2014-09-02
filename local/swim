@@ -26,12 +26,13 @@ then host_token=default
 else host_token=$1
 fi 
 
-while getopts ":lu:ds:h" opt; do
+while getopts ":lu:ds:o:h" opt; do
   case $opt in
     l) list; exit 0 ;; 
     u) `cp "$HOSTS_DIR/.$OPTARG" "$HOSTS_DIR/.default"`; exit 0 ;;
     d) host_token=default ;;
     s) cat $HOSTS_DIR/.$OPTARG | head -1; exit 0;;
+    o) open http://`cat $HOSTS_DIR/.$OPTARG`;;
     h) usage ;;
     :) echo "Option -$OPTARG requires parameter" 1>&2; exit 1 ;;
   esac
