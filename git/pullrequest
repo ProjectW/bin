@@ -6,7 +6,7 @@ CURRENT_BRANCH=`git symbolic-ref HEAD | sed -e "s/^refs\/heads\///"`
 
 BASE_GIT_URL='https://github.com/ProjectW'
 
-COMPARE_URL="$BASE_GIT_URL/$CURRENT_PROJECT/compare/beta...$CURRENT_BRANCH"
+COMPARE_URL="$BASE_GIT_URL/$CURRENT_PROJECT/compare/master...$CURRENT_BRANCH"
 
 open $COMPARE_URL
 
